@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking Confirmation</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .modal {
+        background-color: #fff;
+        padding: 20px 30px;
+        border-radius: 8px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+        position: relative;
+      }
+      .modal i {
+        font-size: 50px;
+        color: #28a745; /* Green color for success */
+      }
+      .modal h1 {
+        font-size: 24px;
+        color: #333;
+        margin: 20px 0;
+      }
+      .booking-details {
+        margin-top: 20px;
+        text-align: left;
+      }
+      .booking-details p {
+        margin: 10px 0;
+        font-size: 16px;
+        color: #555;
+      }
+      .booking-details p strong {
+        color: #333;
+      }
+      .modal-footer {
+        margin-top: 30px;
+      }
+      .modal-footer a {
+        text-decoration: none;
+        color: #007bff;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="modal">
+      <i class="fas fa-check-circle"></i>
+      <!-- Success Icon -->
+      <h1>{{message}}</h1>
+      <div class="booking-details">
+        <p><strong>Booking ID:</strong> {{bookingId}}</p>
+        <p><strong>Date:</strong> {{bookingDate}}</p>
+        <p><strong>Room:</strong> {{room}}</p>
+        <p><strong>Total Amount:</strong> {{totalAmount}}tk</p>
+      </div>
+      <div class="modal-footer">
+        <a href="http://localhost:5173/">Go to Homepage</a>
+      </div>
+      <p style="color: #28a745; margin-top: 20px">
+        Thank you for your booking!
+      </p>
+    </div>
+  </body>
+</html>
