@@ -81,7 +81,7 @@ const confirmationService = async (transactionId: string, status: string, id: st
 
         // Add "Go to Home" link and customize styles for failed payments
         if (!isSuccessful) {
-            const homeLink = '<a href="http://localhost:5173/" style="color: white; background-color: red; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Go to Home</a>';
+            const homeLink = '<a href="https://meeting-room-booking-system-three.vercel.app/" style="color: white; background-color: red; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Go to Home</a>';
             const errorStyles = `
                 <div style="color: red; font-weight: bold; padding: 20px; background-color: #ffe6e6; border: 2px solid red; margin: 20px 0;">
                     ${message}
@@ -104,7 +104,7 @@ const confirmationService = async (transactionId: string, status: string, id: st
                 Payment confirmation failed. Please try again later.
             </div>
             <div style="text-align: center; margin-top: 20px;">
-                <a href="http://localhost:5173/" style="color: white; background-color: red; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Go to Home</a>
+                <a href="https://meeting-room-booking-system-three.vercel.app/" style="color: white; background-color: red; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Go to Home</a>
             </div>
         `;
     }
