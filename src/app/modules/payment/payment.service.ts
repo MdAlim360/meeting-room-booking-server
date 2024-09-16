@@ -21,7 +21,6 @@ export interface TBooking extends Document {
 }
 
 const confirmationService = async (transactionId: string, status: string, id: string): Promise<string> => {
-
     try {
         // Verify payment
         const verifyResponse = await verifyPayment(transactionId);
@@ -31,11 +30,6 @@ const confirmationService = async (transactionId: string, status: string, id: st
         // Check payment status
         if (verifyResponse && verifyResponse.pay_status === 'Successful') {
             // Update slot booking status
-            // result = await Booking.findByIdAndUpdate(
-            //     id,
-            //     { isConfirmed: 'confirmed' },
-            //     { new: true }
-            // );
             const bookingDetails = await Booking.findById(id);
             if (!bookingDetails) {
                 throw new Error('Booking not found');
@@ -46,6 +40,11 @@ const confirmationService = async (transactionId: string, status: string, id: st
                 { _id: { $in: bookingDetails.slots } }, // Update all slots related to this booking
                 { isBooked: true }
             );
+
+            // Update booking confirmation status
+            bookingDetails.isConfirmed = 'confirmed';
+            await bookingDetails.save();
+
             message = 'Your booking has been confirmed!';
             isSuccessful = true;
         } else {
@@ -54,7 +53,6 @@ const confirmationService = async (transactionId: string, status: string, id: st
 
         // Fetch the updated booking details
         const bookingDetails = await Booking.findById(id);
-        // console.log('bbb', bookingDetails);
         if (!bookingDetails) {
             throw new Error('Booking not found');
         }
@@ -92,6 +90,7 @@ const confirmationService = async (transactionId: string, status: string, id: st
             `;
             template = template.replace('{{errorContent}}', errorStyles);
         } else {
+            // Clear the error content placeholder if payment is successful
             template = template.replace('{{errorContent}}', '');
         }
 
@@ -109,6 +108,7 @@ const confirmationService = async (transactionId: string, status: string, id: st
         `;
     }
 };
+
 
 export const paymentServices = {
     confirmationService
