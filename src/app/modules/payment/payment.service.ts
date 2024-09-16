@@ -67,7 +67,7 @@ const confirmationService = async (transactionId: string, status: string, id: st
         const totalAmount = bookingDetails.totalAmount !== undefined ? bookingDetails.totalAmount.toString() : 'N/A';
 
         // Load and update the template
-        const filePath = join(__dirname, '../../../views/confirmation.html');
+        const filePath = join(__dirname, '../../../../public/views/confirmation.html');
         let template = readFileSync(filePath, 'utf-8');
 
         // Replace placeholders with actual data
@@ -77,6 +77,22 @@ const confirmationService = async (transactionId: string, status: string, id: st
         template = template.replace('{{room}}', roomName);
         template = template.replace('{{totalAmount}}', totalAmount);
 
+        // Add "Go to Home" link and customize styles for failed payments
+        if (!isSuccessful) {
+            const homeLink = '<a href="https://meeting-room-booking-system-three.vercel.app/" style="color: white; background-color: red; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Go to Home</a>';
+            const errorStyles = `
+                <div style="color: red; font-weight: bold; padding: 20px; background-color: #ffe6e6; border: 2px solid red; margin: 20px 0;">
+                    ${message}
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    ${homeLink}
+                </div>
+            `;
+            template = template.replace('{{errorContent}}', errorStyles);
+        } else {
+            // Clear the error content placeholder if payment is successful
+            template = template.replace('{{errorContent}}', '');
+        }
 
         return template;
 
