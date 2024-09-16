@@ -9,7 +9,7 @@ export const initialPayment = async (paymentData: any) => {
             tran_id: paymentData.transactionId,
             success_url: `https://meeting-room-booking-system-backend-coral.vercel.app/api/payment/confirmation?transactionId=${paymentData.transactionId}&status=success&id=${paymentData.id}`,
             fail_url: `https://meeting-room-booking-system-backend-coral.vercel.app/api/payment/confirmation?status=failed`,
-            cancel_url: "http://localhost:5173/",
+            cancel_url: "https://meeting-room-booking-system-three.vercel.app/my-bookings",
             amount: paymentData.totalAmount,
             currency: "BDT",
             signature_key: config.signature_key,
