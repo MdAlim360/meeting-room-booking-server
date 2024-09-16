@@ -41,9 +41,6 @@ const confirmationService = async (transactionId: string, status: string, id: st
                 { isBooked: true }
             );
 
-            // Update booking confirmation status
-            bookingDetails.isConfirmed = 'confirmed';
-            await bookingDetails.save();
 
             message = 'Your booking has been confirmed!';
             isSuccessful = true;
