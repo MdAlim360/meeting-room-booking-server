@@ -27,6 +27,34 @@ const createUserIntoDb = async (payload: TUser) => {
     }
 }
 
+const getAllUsersFromDb = async () => {
+    const result = await User.find()
+
+    if (result.length === 0) {
+        throw new AppError(httpStatus.BAD_REQUEST, 'Data is not found!')
+    }
+    return result;
+}
+
+const updateUsersIntoDb = async (id: string, payload: any) => {
+    try {
+        const result = await User.findByIdAndUpdate(
+            id,
+            payload,
+            {
+                new: true,
+
+            }
+        )
+        return result;
+
+    } catch (error: any) {
+        throw new AppError(httpStatus.BAD_REQUEST, 'Failed to update user!');
+    }
+}
+
 export const userService = {
-    createUserIntoDb
+    createUserIntoDb,
+    getAllUsersFromDb,
+    updateUsersIntoDb
 }

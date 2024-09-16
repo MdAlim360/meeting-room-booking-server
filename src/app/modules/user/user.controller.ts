@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { userService } from "./user.service";
@@ -16,6 +17,32 @@ const createUser = catchAsync(async (req, res) => {
 
 })
 
+const getAllUsers = catchAsync(async (req, res) => {
+    const result = await userService.getAllUsersFromDb();
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "All user retrieved successfully",
+        data: result
+    })
+})
+
+const updateUsers = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const updateData = req.body;
+    const result = await userService.updateUsersIntoDb(id, updateData);
+
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'User update successfully',
+        data: result,
+    })
+})
+
 export const userController = {
-    createUser
+    createUser,
+    getAllUsers,
+    updateUsers
 }
